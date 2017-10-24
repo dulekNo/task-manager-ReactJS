@@ -1,0 +1,8 @@
+footer {
+  background-color: #20232a;
+  height: 60px;
+  width: 100%;
+  position: absolute;    /*Here's what sticks it*/
+  bottom: 0;          /*to the bottom of the window*/
+  left: 0;            /*and to the left of the window.*/
+}

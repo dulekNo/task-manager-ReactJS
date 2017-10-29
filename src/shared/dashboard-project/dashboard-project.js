@@ -12,7 +12,7 @@ class DashboardProject extends React.Component {
                 name: 'project0'
             }, {
                 projectNr: '1',
-                name: 'project1'
+                name: 'Project1'
             }, {
                 projectNr: '2',
                 name: 'project2'
@@ -24,7 +24,8 @@ class DashboardProject extends React.Component {
 
         this.state = {
             copyOfListOfProjects: listOfProjects,
-            modalWindowIsOpen: false
+            modalWindowIsOpen: false,
+            searchProjeckt: null
         };
 
     }
@@ -60,30 +61,40 @@ class DashboardProject extends React.Component {
     }
 
     closeModalWindow() {
-        this.setState({ modalWindowIsOpen: false});
+        this.setState({ modalWindowIsOpen: false });
         console.log(this.state);
     }
 
+    inputValueChange(e) {
+        e.preventDefault();
+        this.setState({ searchProjeckt: e.target.value.toLowerCase() });
+        // let value= e.target.value;
+        // setTimeout(function () {
+        //     console.log(value);
+        // }, 3000);
+    }
+
     render() {
-        this.listItems = this
-            .state
-            .copyOfListOfProjects
-            .map((ele) => {
-                return (
-                    <li key={ele.projectNr}>
-                        <div>
-                            {ele.name}
-                            {ele.projectNr}
-                        </div>
-                        <button className="in-list-button" onClick={() => { this.removeProjeckt(ele.projectNr) }}>
-                            X
+        this.listItems = this.state.copyOfListOfProjects.map((ele) => {
+            if(this.state.searchProjeckt !== null & ele.name.toString().toLowerCase().indexOf(this.state.searchProjeckt) === -1){
+                return null;
+            }
+
+            return (
+                <li key={ele.projectNr}>
+                    <div>
+                        {ele.name} 
+                        {/* projectNr{ele.projectNr} */}
+                    </div>
+                    <button className="in-list-button" onClick={() => { this.removeProjeckt(ele.projectNr) }}>
+                        X
                         </button>
-                        <button className="in-list-button" >
-                            E
+                    <button className="in-list-button" >
+                        E
                         </button>
-                    </li>
-                )
-            });
+                </li>
+            )
+        });
         // let modalWindow = this.state.modalWindow ? () : null;
 
 
@@ -92,7 +103,7 @@ class DashboardProject extends React.Component {
                 <span>
                     Projects
                 </span>
-                < input className="searchbox" placeholder="search" />
+                < input className="searchbox" placeholder="search" onChange={this.inputValueChange.bind(this)} />
                 <div className="selectable-container">
                     <ul>
                         {this.listItems}
@@ -101,7 +112,7 @@ class DashboardProject extends React.Component {
                 < button className="button" onClick={() => { this.openModalWindow() }}>
                     Add project
                 </button>
-                <ModalWindow openModalWindow={this.state.modalWindowIsOpen} closeModalWindow={() => {this.closeModalWindow()}}>
+                <ModalWindow openModalWindow={this.state.modalWindowIsOpen} closeModalWindow={() => { this.closeModalWindow() }}>
 
                 </ModalWindow>
             </div>

@@ -1,0 +1,65 @@
+span {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.searchbox {
+    background: transparent;
+    border: 1px solid;
+    width: 300px;
+    height: 20px;
+    font-size: 18px;
+    display: block;
+}
+
+.button {
+    margin-top: 20px;
+    background: white;
+    border: 1px solid black;
+    color: #8fec37;
+    font-weight: bold;
+    width: 150px;
+    height: 30px;
+    font-size: 17px;
+    text-transform: capitalize;
+}
+
+.selectable-container {
+    border: 1px solid;
+    ul {
+        margin: 0px;
+        padding: 0px;
+        list-style: none;
+        li {
+            width: 350px;
+            height: 25px;
+            div {
+                display: inline-block;
+                width: 300px;
+                overflow: hidden;
+                white-space: nowrap;
+                /* Don't forget this one */
+                text-overflow: ellipsis;
+            }
+            .in-list-button {
+                border: none;
+                background: none;
+                height: 24px;
+                width: 20px;
+                float: right;
+                display: none;
+                padding: 0;
+                margin: 0;
+            }
+            &:hover {
+                background-color: #E0E0E0; // opacity: 0.4;
+                .in-list-button {
+                    display: inline-block;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+}

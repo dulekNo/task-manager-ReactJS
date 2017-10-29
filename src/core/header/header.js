@@ -1,17 +1,10 @@
 import './header.css';
 import React from 'react';
-import {NavLink} from 'react-router-dom';
-import { withRouter } from 'react-router';
+import {NavLink} from 'react-router-dom';;
 
 class Header extends React.Component {
-    lama() {
-        console.log(this);
-    }
 
     render() {
-        console.log(this);
-        console.log(this.props.location);
-        const { match, location, history } = this.props
         return (
             <header>
                 <div className="header-content">
@@ -22,13 +15,13 @@ class Header extends React.Component {
                         <li>
                             <NavLink exact to="/" activeClassName="selected-link">
                                 Dashboard
-                                <span className="leClass"></span>
+                                <span className="selected-route-underline"></span>
                             </NavLink>
                         </li>
                         <li>
                             <NavLink to="/tasks" activeClassName="selected-link">
                                 Tasks
-                                <span className="leClass"></span>
+                                <span className="selected-route-underline"></span>
                             </NavLink>
                         </li>
                     </ul>
@@ -38,6 +31,5 @@ class Header extends React.Component {
     }
 }
 
-const ShowTheLocationWithRouter = withRouter(Header);
 
 export default Header;

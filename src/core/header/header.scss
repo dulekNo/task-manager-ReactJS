@@ -9,6 +9,7 @@ header {
         display: inline-block;
         height: 100%;
         width: 70%;
+        min-width: 1300px;
         float: left;
         cursor: default;
         .app-name {
@@ -32,7 +33,7 @@ header {
                 height: 100%;
                 .selected-link {
                     color: #8fec37;
-                    .leClass {
+                    .selected-route-underline {
                         position: absolute;
                         bottom: -1px;
                         height: 4px;

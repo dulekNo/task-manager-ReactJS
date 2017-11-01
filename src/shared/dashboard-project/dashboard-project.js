@@ -25,13 +25,14 @@ class DashboardProject extends React.Component {
         this.state = {
             copyOfListOfProjects: listOfProjects,
             modalWindowIsOpen: false,
-            searchProjeckt: null
+            searchProjeckt: null,
+            newProjectNr: '',
+            newProjectName: ''
         };
 
     }
 
     removeProjeckt(index) {
-        console.log(index);
         for (let i = 0, length = this.state.copyOfListOfProjects.length; i < length; i++) {
             if (this.state.copyOfListOfProjects[i].projectNr === index) {
                 this.state.copyOfListOfProjects.splice(i, 1);
@@ -42,8 +43,8 @@ class DashboardProject extends React.Component {
     }
 
     addProjeckt(name, projectNr) {
-        console.log(name);
-        console.log(projectNr);
+        // console.log(name);
+        // console.log(projectNr);
         this.setState({ modalWindow: true });
         // for (let i = 0, length = this.state.copyOfListOfProjects.length; i < length; i++) {
         //     if (this.state.copyOfListOfProjects[i].projectNr === index) {
@@ -55,14 +56,15 @@ class DashboardProject extends React.Component {
     }
 
     openModalWindow() {
-        console.log('lalala');
+        this.newFunction();
+    }
+
+    newFunction() {
         this.setState({ modalWindowIsOpen: true });
-        console.log(this.state);
     }
 
     closeModalWindow() {
         this.setState({ modalWindowIsOpen: false });
-        console.log(this.state);
     }
 
     inputValueChange(e) {
@@ -74,16 +76,47 @@ class DashboardProject extends React.Component {
         // }, 3000);
     }
 
+    handleChange(event) {
+
+
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+
+        this.setState({
+            [name]: value
+        });
+
+        // this.setState({ inputValue: event.target.value });
+        //there should be chack if this numer is already used
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        let tmp = this.state.copyOfListOfProjects;
+        tmp.push({
+            projectNr: this.state.newProjectNr,
+            name: this.state.newProjectName
+        });
+        this.setState({
+            copyOfListOfProjects: tmp
+        });
+        this.closeModalWindow();
+    }
+
     render() {
+        // console.log('this.state.copyOfListOfProjects');
+        // console.log(this.state);
+        // console.log(this.state.copyOfListOfProjects);
         this.listItems = this.state.copyOfListOfProjects.map((ele) => {
-            if(this.state.searchProjeckt !== null & ele.name.toString().toLowerCase().indexOf(this.state.searchProjeckt) === -1){
+            if (this.state.searchProjeckt !== null & ele.name.toString().toLowerCase().indexOf(this.state.searchProjeckt) === -1) {
                 return null;
             }
 
             return (
                 <li key={ele.projectNr}>
                     <div>
-                        {ele.name} 
+                        {ele.name}
                         {/* projectNr{ele.projectNr} */}
                     </div>
                     <button className="in-list-button" onClick={() => { this.removeProjeckt(ele.projectNr) }}>
@@ -113,7 +146,17 @@ class DashboardProject extends React.Component {
                     Add project
                 </button>
                 <ModalWindow openModalWindow={this.state.modalWindowIsOpen} closeModalWindow={() => { this.closeModalWindow() }}>
-
+                    <form onSubmit={this.handleSubmit.bind(this)}>
+                        <label>
+                            Name:
+                            <input type="text" name="newProjectNr" value={this.state.newProjectNr} onChange={this.handleChange.bind(this)} />
+                        </label>
+                        <label>
+                            Nr:
+                            <input type="text" name="newProjectName" value={this.state.newProjectName} onChange={this.handleChange.bind(this)} />
+                        </label>
+                        <input type="submit" value="Submit" />
+                    </form>
                 </ModalWindow>
             </div>
         );

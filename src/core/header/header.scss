@@ -5,6 +5,8 @@ header {
     font-size: 32px;
     position: fixed;
     padding-left: 15%;
+    z-index: 10;
+    
     .header-content {
         display: inline-block;
         height: 100%;
@@ -12,6 +14,7 @@ header {
         min-width: 1300px;
         float: left;
         cursor: default;
+
         .app-name {
             display: inline-block;
             color: white;
@@ -21,18 +24,23 @@ header {
             float: left;
             height: 57px;
         }
+
         ul {
             display: inline-block;
             margin: 0px;
             padding: 0px;
             height: 100%;
             float: left;
+
             li {
                 display: inline-block;
                 list-style: none;
                 height: 100%;
+
                 .selected-link {
+
                     color: #8fec37;
+
                     .selected-route-underline {
                         position: absolute;
                         bottom: -1px;
@@ -51,6 +59,7 @@ header {
                     font-size: 24px;
                     padding: 16px 25px 0 25px;
                     position: relative;
+                    
                     &:hover {
                         color: #8fec37;
                     }

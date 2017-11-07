@@ -1,6 +1,6 @@
 import React from 'react';
 import './dashboard.css';
-import DashboardProject from '../../shared/dashboard-project/dashboard-project';
+import DashboardProjects from '../../shared/dashboard-project/dashboard-project';
 
 class Dashboard extends React.Component {
 
@@ -11,7 +11,7 @@ class Dashboard extends React.Component {
         return (
             <div className="mainContent">
                 <div className="column">
-                    <DashboardProject></DashboardProject>
+                    <DashboardProjects></DashboardProjects>
                 </div>
                 <div className="column"></div>
                 <div className="column"></div>

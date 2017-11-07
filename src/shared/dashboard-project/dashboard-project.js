@@ -2,7 +2,7 @@ import React from 'react';
 import ModalWindow from '../modal-window/modal-window';
 import './dashboard-project.css';
 
-class DashboardProject extends React.Component {
+class DashboardProjects extends React.Component {
     listItems = null;
     constructor(props) {
         super(props)
@@ -27,7 +27,9 @@ class DashboardProject extends React.Component {
             modalWindowIsOpen: false,
             searchProjeckt: null,
             newProjectNr: '',
-            newProjectName: ''
+            newProjectName: '',
+            placeholderClass: '',
+            underlineClass:'underline-searchbox-close'
         };
 
     }
@@ -56,10 +58,6 @@ class DashboardProject extends React.Component {
     }
 
     openModalWindow() {
-        this.newFunction();
-    }
-
-    newFunction() {
         this.setState({ modalWindowIsOpen: true });
     }
 
@@ -104,6 +102,34 @@ class DashboardProject extends React.Component {
         this.closeModalWindow();
     }
 
+    togglePlaceholder() {
+        if (this.state.placeholderClass === '' || this.state.placeholderClass === 'searchboxPlaceholderDown') {
+            this.setState({
+                placeholderClass: 'searchboxPlaceholderUp'
+            });
+            this.textInput.focus();
+        } else {
+            this.setState({
+                placeholderClass: ''
+            });
+        }
+    }
+    
+    movePlaceholderUp() {
+        this.setState({
+            placeholderClass: 'searchboxPlaceholderUp',
+            underlineClass: 'underline-searchbox-open'
+        });
+        this.textInput.focus();
+    }
+
+    movePlaceholderDown() {
+        this.setState({
+            placeholderClass: '',
+            underlineClass: ''
+        });
+    }
+
     render() {
         // console.log('this.state.copyOfListOfProjects');
         // console.log(this.state);
@@ -133,9 +159,23 @@ class DashboardProject extends React.Component {
 
         return (
             <div>
-                <span>
+                <span className="blockTitle">
                     Projects
                 </span>
+
+                <div className="searchboxInput">
+                    <input className="searchboxFAKE"
+                        onChange={this.inputValueChange.bind(this)}
+                        ref={(input) => { this.textInput = input; }}
+                        onBlur={this.movePlaceholderDown.bind(this)} />
+                    <span 
+                        className={'searchboxPlaceholder ' + this.state.placeholderClass}
+                        onClick={this.movePlaceholderUp.bind(this)} >
+                        Search project
+                    </span>
+                    <span className={'underline-searchbox-close ' + this.state.underlineClass}></span>
+                </div>
+
                 < input className="searchbox" placeholder="search" onChange={this.inputValueChange.bind(this)} />
                 <div className="selectable-container">
                     <ul>
@@ -163,4 +203,4 @@ class DashboardProject extends React.Component {
     }
 }
 
-export default DashboardProject;
+export default DashboardProjects;

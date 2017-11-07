@@ -29,7 +29,8 @@ class DashboardProjects extends React.Component {
             newProjectNr: '',
             newProjectName: '',
             placeholderClass: '',
-            underlineClass:'underline-searchbox-close'
+            underlineClass: 'underline-searchbox-close',
+            searchInputWidth: '200'
         };
 
     }
@@ -67,11 +68,17 @@ class DashboardProjects extends React.Component {
 
     inputValueChange(e) {
         e.preventDefault();
-        this.setState({ searchProjeckt: e.target.value.toLowerCase() });
-        // let value= e.target.value;
-        // setTimeout(function () {
-        //     console.log(value);
-        // }, 3000);
+        if (!this.doSearchInputIsEmpty()) {
+            this.setState({
+                searchProjeckt: e.target.value.toLowerCase(),
+                searchInputWidth: 180
+            });
+        } else {
+            this.setState({
+                searchProjeckt: e.target.value.toLowerCase(),
+                searchInputWidth: 200
+            });
+        }
     }
 
     handleChange(event) {
@@ -103,9 +110,9 @@ class DashboardProjects extends React.Component {
     }
 
     togglePlaceholder() {
-        if (this.state.placeholderClass === '' || this.state.placeholderClass === 'searchboxPlaceholderDown') {
+        if (this.state.placeholderClass === '') {
             this.setState({
-                placeholderClass: 'searchboxPlaceholderUp'
+                placeholderClass: 'searchbox-placeholder-up'
             });
             this.textInput.focus();
         } else {
@@ -114,20 +121,40 @@ class DashboardProjects extends React.Component {
             });
         }
     }
-    
+
+    doSearchInputIsEmpty() {
+        let val = this.textInput.value;
+        if (val === null || val === undefined || val === '' || val === ' ') {
+            return true;
+        }
+        return false;
+    }
+
     movePlaceholderUp() {
         this.setState({
-            placeholderClass: 'searchboxPlaceholderUp',
+            placeholderClass: 'searchbox-placeholder-up',
             underlineClass: 'underline-searchbox-open'
         });
         this.textInput.focus();
     }
 
     movePlaceholderDown() {
+        if (this.doSearchInputIsEmpty()) {
+            this.setState({
+                placeholderClass: '',
+                underlineClass: ''
+            });
+        }
+
+    }
+
+    cleanSearchInput() {
+        this.textInput.value = null;
         this.setState({
-            placeholderClass: '',
-            underlineClass: ''
+            searchProjeckt: null,
+            searchInputWidth: 200
         });
+        this.textInput.focus();
     }
 
     render() {
@@ -145,44 +172,41 @@ class DashboardProjects extends React.Component {
                         {ele.name}
                         {/* projectNr{ele.projectNr} */}
                     </div>
-                    <button className="in-list-button" onClick={() => { this.removeProjeckt(ele.projectNr) }}>
-                        X
-                        </button>
-                    <button className="in-list-button" >
-                        E
-                        </button>
+                    <button className="in-list-button" onClick={() => { this.removeProjeckt(ele.projectNr) }}>X</button>
+                    <button className="in-list-button">E</button>
                 </li>
             )
         });
-        // let modalWindow = this.state.modalWindow ? () : null;
 
 
         return (
             <div>
-                <span className="blockTitle">
+                <span className="block-title">
                     Projects
                 </span>
 
-                <div className="searchboxInput">
-                    <input className="searchboxFAKE"
+                <div className="searchbox-input">
+                    <input
+                        style={{ width: this.state.searchInputWidth + 'px' }}
+                        className="searchbox"
                         onChange={this.inputValueChange.bind(this)}
                         ref={(input) => { this.textInput = input; }}
                         onBlur={this.movePlaceholderDown.bind(this)} />
-                    <span 
-                        className={'searchboxPlaceholder ' + this.state.placeholderClass}
+                    {this.state.searchInputWidth === 180 && <span className="clean-button" onClick={this.cleanSearchInput.bind(this)}>x</span>}
+                    <span
+                        className={'searchbox-placeholder ' + this.state.placeholderClass}
                         onClick={this.movePlaceholderUp.bind(this)} >
                         Search project
                     </span>
                     <span className={'underline-searchbox-close ' + this.state.underlineClass}></span>
                 </div>
 
-                < input className="searchbox" placeholder="search" onChange={this.inputValueChange.bind(this)} />
                 <div className="selectable-container">
                     <ul>
                         {this.listItems}
                     </ul>
                 </div >
-                < button className="button" onClick={() => { this.openModalWindow() }}>
+                <button className="button" onClick={() => { this.openModalWindow() }}>
                     Add project
                 </button>
                 <ModalWindow openModalWindow={this.state.modalWindowIsOpen} closeModalWindow={() => { this.closeModalWindow() }}>

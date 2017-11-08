@@ -1,0 +1,63 @@
+@import '../../assets/styles/global-variables.scss';
+
+.searchbox-input {
+    width: 200px;
+    // border: 1px solid black;
+    margin-top: 30px;
+    height: 24px;
+    position: static;
+    padding: 0px;
+
+    .searchbox-placeholder {
+        font-size: 18px;
+        -webkit-transition: 0.5s;
+        /* Safari */
+        transition: 0.5s;
+        // background-color: pink;
+        width: 200px;
+        position: absolute;
+        cursor: pointer;
+    }
+
+    .searchbox-placeholder-up {
+        font-size: 12px;
+        margin-top: -17px;
+    }
+
+    .searchbox {
+        height: 24px;
+        width: 200px;
+        position: absolute;
+        display: inline;
+        margin: 0px;
+        padding: 0px;
+        border: none;
+        font-size: 16px;
+        font-weight: normal;
+        // background-color: aqua;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    .clean-button {
+        float: right;
+        width: 20px;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    .underline-searchbox-close {
+        position: absolute;
+        // bottom: -1px;
+        width: 200px;
+        margin-top: 23px;
+        height: 1px;
+        background: black;
+        z-index: 1;
+    }
+    .underline-searchbox-open {
+        background: #8fec37;
+    }
+}

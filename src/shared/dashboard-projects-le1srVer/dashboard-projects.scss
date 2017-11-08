@@ -19,6 +19,7 @@
         // background-color: pink;
         width: 200px;
         position: absolute;
+        cursor: pointer;
     }
 
     .searchbox-placeholder-up {
@@ -86,7 +87,8 @@
         li {
             width: 350px;
             height: 25px;
-            background-color: #C0E683;
+            background-color: #e3ffb6;
+            margin: 2px 0 2px 0;
             div {
                 display: inline-block;
                 width: 300px;
@@ -106,7 +108,7 @@
                 margin: 0;
             }
             &:hover {
-                background-color: #E0E0E0; // opacity: 0.4;
+                background-color: white; // opacity: 0.4;
                 .in-list-button {
                     display: inline-block;
                     &:hover {

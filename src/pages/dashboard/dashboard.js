@@ -1,6 +1,6 @@
 import React from 'react';
 import './dashboard.css';
-import DashboardProjects from '../../shared/dashboard-project/dashboard-project';
+import DashboardProjects from '../../shared/dashboard-projects/dashboard-projects';
 
 class Dashboard extends React.Component {
 

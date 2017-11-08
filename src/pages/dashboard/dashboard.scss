@@ -1,12 +1,11 @@
 .mainContent {
-    height: 800px;
+    min-height: 750px;
     width: 100%;
     // background-color: grey;
     display: flex;
     .column {
         width: 33%;
-        height: 100%;
-        display: inline-block;
+        min-width: 380px;
         &:first-child {
             // background-color: #A2EB80;
         }

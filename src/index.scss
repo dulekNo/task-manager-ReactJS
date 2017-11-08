@@ -1,27 +1,28 @@
+@import './assets/styles/global-variables.scss';
+
 @font-face {
   font-family: "LunaSans";
   font-weight: 320;
-  src: url("./fonts/luna-sans/LunaSans-Italic.ttf");
+  src: url("./assets/fonts/luna-sans/LunaSans-Italic.ttf");
 }
 
 html, body, #root {
   margin: 0px;
   height: 100%;
-  font-size: 18px;
+  font-size: $global-font-size;
   font-family: 'LunaSans';
-  font-family: Segoe UI Light;
+  font-family: $global-font;
 }
 
 .app {
   width: 100%;
-  min-height: 100%;
-  position: relative;
+  height: 100%;
 }
 
 main {
-  margin: 0 15% 0 15%;
+  margin: 0 $global-app-margin 0 $global-app-margin;
   padding-top: 84px;
-  padding-bottom: 70px;
-  height: 100%;
+  margin-bottom: 35px;
   min-width: 800px;
+  min-height: calc(100% - 179px);
 }

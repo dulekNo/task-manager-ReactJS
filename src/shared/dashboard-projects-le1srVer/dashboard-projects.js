@@ -1,6 +1,6 @@
 import React from 'react';
 import ModalWindow from '../modal-window/modal-window';
-import './dashboard-project.css';
+import './dashboard-projects.css';
 
 class DashboardProjects extends React.Component {
     listItems = null;

@@ -1,8 +1,10 @@
+@import '../../assets/styles/global-variables.scss';
+
 footer {
-  background-color: #20232a;
+  background-color: $primary-color-weak-black;
   height: 60px;
   width: 100%;
-  position: absolute;    /*Here's what sticks it*/
-  bottom: 0;          /*to the bottom of the window*/
-  left: 0;            /*and to the left of the window.*/
+  position: relative;
+  bottom: 0;
+  left: 0;
 }

@@ -1,22 +1,28 @@
 @import '../../assets/styles/global-variables.scss';
 @import '../../assets/styles/global-styles.scss';
 
-.selectable-container {
+.selectable-container-task {
     // border: 1px solid;
     margin-top: 15px;
     ul {
         margin: 0px;
         padding: 0px;
         list-style: none;
-        .selectedProject {
-            background-color: $primary-color-white;
-            font-family: $global-font-bold;
+        .task-done {
+            background-color: $task-done;
+        }
+        .task-in-progress {
+            background-color: $task-in-progress;
+        }
+        .task-todo {
+            background-color: $task-todo;
         }
         li {
             width: 350px;
             height: 25px;
             background-color:$secondary-green-2;
             margin: 2px 0 2px 0;
+            display: inline-block;
             div {
                 display: inline-block;
                 width: 300px;
@@ -44,6 +50,19 @@
                         color: $secondary-green-1;
                     }
                 }
+            }
+        }
+        .outer-button {
+            cursor: pointer;
+            display: inline-block;
+            .outer-button-wraper {
+                margin-top: -20px;
+                display: block;
+                width: 25px;
+                text-align: center;
+            }
+            &:hover {
+                font-family: $global-font-bold;
             }
         }
     }

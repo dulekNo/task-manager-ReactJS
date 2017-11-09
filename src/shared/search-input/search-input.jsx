@@ -1,7 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './search-input.css';
 
 class SearchInput extends React.Component {
+
+    static propTypes = {
+        setSearchedElement: PropTypes.func.isRequired,
+        label: PropTypes.string.isRequired
+    };
 
     constructor(props) {
         super(props);
@@ -17,10 +23,10 @@ class SearchInput extends React.Component {
     inputValueChange(e) {
         e.preventDefault();
         if (!this.doSearchInputIsEmpty()) {
-            this.props.setSearchedProjeck(e.target.value.toLowerCase());
+            this.props.setSearchedElement(e.target.value.toLowerCase());
             this.setState({ searchInputWidth: 180 });
         } else {
-            this.props.setSearchedProjeck(e.target.value.toLowerCase());
+            this.props.setSearchedElement(e.target.value.toLowerCase());
             this.setState({ searchInputWidth: 200 });
         }
     }
@@ -62,7 +68,7 @@ class SearchInput extends React.Component {
 
     cleanSearchInput() {
         this.textInput.value = null;
-        this.props.setSearchedProjeck(null);
+        this.props.setSearchedElement(null);
         this.setState({ searchInputWidth: 200 });
         this.textInput.focus();
     }
@@ -80,7 +86,7 @@ class SearchInput extends React.Component {
                 <span
                     className={"searchbox-placeholder " + this.state.placeholderClass}
                     onClick={this.movePlaceholderUp.bind(this)} >
-                    Search project
+                    {this.props.label}
                 </span>
                 <span className={"underline-searchbox-close " + this.state.underlineClass}></span>
             </div>

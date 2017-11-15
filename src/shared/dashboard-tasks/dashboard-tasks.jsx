@@ -30,16 +30,15 @@ class DashboardTasks extends React.Component {
         });
     }
 
-    setSelectedTask(elemNr) {
-        this.setState({
-            selectedTask: elemNr
-        });
-    }
+    // setSelectedTask(elemNr) {
+    //     this.setState({
+    //         selectedTask: elemNr
+    //     });
+    //     this.props.selectedTask(elemNr);
+    // }
 
-    clearSelectedTask(elemNr) {
-        this.setState({
-            selectedTask: null
-        });
+    clearSelectedTask() {
+        this.props.setSelectedTask(null);
     }
 
     setTaskStyleClass(status) {
@@ -60,25 +59,25 @@ class DashboardTasks extends React.Component {
 
     render() {
 
-        this.tmpArray = this.props.listOfTasks || [];
+        this.renderArray = this.props.listOfTasks || [];
         this.taskClass = '';
 
-        if (this.state.selectedTask !== null) {
-            this.listItems = this.tmpArray.map((ele) => {
-                if (this.state.selectedTask === ele.nr) {
+        if (this.props.selectedTask !== null) {
+            this.listItems = this.renderArray.map((ele) => {
+                if (this.props.selectedTask === ele.nr) {
 
                     this.taskClass = this.setTaskStyleClass(ele.status);
 
                     return (
                         <div key={ele.nr}>
-                            <li className={this.selectedTask}>
+                            <li className={`listElement ${(this.props.selectedTask === ele.nr ? 'selectedTask' : '')} ${this.taskClass}`}>
                                 {/* <li key={ele.nr} className='selectedTask'> */}
                                 <div>
                                     {ele.name}
                                 </div>
                                 <button className="in-list-button" onClick={() => { this.redirectTo(ele.nr) }}>D</button>
                             </li>
-                            <div className="outer-button" onClick={() => { this.clearSelectedTask(ele.nr) }}>
+                            <div className="outer-button" onClick={() => { this.clearSelectedTask() }}>
                                 <div className="outer-button-wraper">X</div>
                             </div>
                         </div>
@@ -89,17 +88,16 @@ class DashboardTasks extends React.Component {
                 }
             });
         } else {
-            this.listItems = this.tmpArray.map((ele) => {
+            this.listItems = this.renderArray.map((ele) => {
                 if (this.state.searchTask !== null & ele.name.toString().toLowerCase().indexOf(this.state.searchTask) === -1) {
                     return null;
                 }
-                
+
                 this.taskClass = this.setTaskStyleClass(ele.status);
-                console.log(this.taskClass);
 
                 return (
-                    <li key={ele.nr} className={(this.state.selectedTask === ele.nr ? 'selectedTask' : '') + this.taskClass}>
-                        <div onClick={() => { this.setSelectedTask(ele.nr) }}>
+                    <li key={ele.nr} className={`listElement ${(this.props.selectedTask === ele.nr ? 'selectedTask' : '')} ${this.taskClass}`}>
+                        <div onClick={() => { this.props.setSelectedTask(ele.nr) }}>
                             {ele.name}
                         </div>
                         <button className="in-list-button" onClick={() => { this.redirectTo(ele.nr) }}>D</button>
@@ -108,13 +106,17 @@ class DashboardTasks extends React.Component {
             });
         }
 
+        if (this.renderArray.length === 0) {
+            return null;
+        }
+
         return (
             <div>
                 <span className="block-title">
                     Tasks
                 </span>
-
-                <SearchInput setSearchedElement={this.setSearchedTask.bind(this)} label={'Search task'} />
+                {/* onClickFunction={this.clearSelectedTask.bind(this)} */}
+                <SearchInput setSearchedElement={this.setSearchedTask.bind(this)} label={'Search task'}  />
 
                 <div className="selectable-container-task">
                     <ul>

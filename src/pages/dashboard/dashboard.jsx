@@ -2,6 +2,7 @@ import React from 'react';
 import './dashboard.css';
 import DashboardProjects from '../../shared/dashboard-projects/dashboard-projects';
 import DashboardTasks from '../../shared/dashboard-tasks/dashboard-tasks';
+import DataVisualization from '../../shared/data-visualization/data-visualization';
 
 class Dashboard extends React.Component {
 
@@ -9,6 +10,12 @@ class Dashboard extends React.Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            selectedProject: null,
+            selectedTask: null
+        };
+
 
         const listOfProjects = [
             {
@@ -28,6 +35,11 @@ class Dashboard extends React.Component {
                     {
                         nr: '2',
                         name: 'task2',
+                        status: 'todo'
+                    },
+                    {
+                        nr: '3',
+                        name: 'task3',
                         status: 'todo'
                     }
                 ]
@@ -95,7 +107,8 @@ class Dashboard extends React.Component {
         ];
         //deep copy must be implemented here
         this.copyOfListOfProjects = listOfProjects;
-        this.TMPARRR =  [
+        this.copyOfListOfTasks = [];
+        this.TMPARRR = [
             {
                 nr: '0',
                 name: 'task0',
@@ -113,16 +126,48 @@ class Dashboard extends React.Component {
             }
         ]
     }
+
+    setSlectedProject(elemNr) {
+        if (this.state.selectedProject !== elemNr) {
+            let selectedProject = this.copyOfListOfProjects.filter(function (project) {
+                return project.projectNr === elemNr;
+            });
+            this.copyOfListOfTasks = selectedProject[0].tasks;
+            this.setState({
+                selectedProject: elemNr,
+                selectedTask: null
+            });
+        }
+    }
+
+    setSelectedTask(elemNr) {
+        this.setState({
+            selectedTask: elemNr
+        });
+    }
+
     render() {
         return (
             <div className="mainContent">
                 <div className="column">
-                    <DashboardProjects listOfProjects={this.copyOfListOfProjects}></DashboardProjects>
+                    <DashboardProjects
+                        listOfProjects={this.copyOfListOfProjects}
+                        setSlectedProject={this.setSlectedProject.bind(this)}
+                        selectedProject={this.state.selectedProject}>
+                    </DashboardProjects>
                 </div>
                 <div className="column">
-                    <DashboardTasks listOfTasks={this.TMPARRR}></DashboardTasks>
+                    <DashboardTasks
+                        listOfTasks={this.copyOfListOfTasks}
+                        setSelectedTask={this.setSelectedTask.bind(this)}
+                        selectedTask={this.state.selectedTask}>
+                    </DashboardTasks>
                 </div>
-                <div className="column"></div>
+                <div className="column">
+                    <DataVisualization 
+                        listOfTasks={this.copyOfListOfTasks}>
+                    </DataVisualization>
+                </div>
             </div>
         );
     }

@@ -6,7 +6,9 @@ import './dashboard-projects.css';
 class DashboardProjects extends React.Component {
 
     static propTypes = {
-        listOfProjects: PropTypes.array.isRequired
+        listOfProjects: PropTypes.array.isRequired,
+        setSlectedProject: PropTypes.func.isRequired,
+        slectedProject: PropTypes.string
     };
 
     listItems = null;
@@ -15,8 +17,7 @@ class DashboardProjects extends React.Component {
         super(props);
 
         this.state = {
-            searchProject: null,
-            selectedProject: null
+            searchProject: null
         };
     }
 
@@ -30,11 +31,12 @@ class DashboardProjects extends React.Component {
         });
     }
 
-    selectProject(elemNr) {
-        this.setState({
-            selectedProject: elemNr
-        });
-    }
+    // selectProject(elemNr) {
+    //     this.setState({
+    //         selectedProject: elemNr
+    //     });
+    //     this.props.selectedProject(elemNr)
+    // }
 
     render() {
         // console.log(this.state);
@@ -46,8 +48,8 @@ class DashboardProjects extends React.Component {
                 return null;
             }
             return (
-                <li key={ele.projectNr} className={this.state.selectedProject === ele.projectNr ? 'selectedProject' : ''}>
-                    <div onClick={() => { this.selectProject(ele.projectNr) }}>
+                <li key={ele.projectNr} className={this.props.selectedProject === ele.projectNr ? 'selectedProject' : ''}>
+                    <div onClick={() => { this.props.setSlectedProject(ele.projectNr) }}>
                         {ele.name}
                     </div>
                     <button className="in-list-button" onClick={() => { this.redirectTo(ele.projectNr) }}>D</button>

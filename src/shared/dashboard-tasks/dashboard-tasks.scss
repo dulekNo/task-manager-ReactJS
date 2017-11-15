@@ -8,21 +8,16 @@
         margin: 0px;
         padding: 0px;
         list-style: none;
-        .task-done {
-            background-color: $task-done;
-        }
-        .task-in-progress {
-            background-color: $task-in-progress;
-        }
-        .task-todo {
-            background-color: $task-todo;
-        }
-        li {
+    
+        .listElement {
             width: 350px;
             height: 25px;
             background-color:$secondary-green-2;
             margin: 2px 0 2px 0;
             display: inline-block;
+            .selectedTask {
+                font-family: $global-font-bold;
+            }
             div {
                 display: inline-block;
                 width: 300px;
@@ -51,6 +46,18 @@
                     }
                 }
             }
+        }
+        .task-done {
+            background-color: $task-done;
+        }
+        .task-in-progress {
+            background-color: $task-in-progress;
+        }
+        .task-todo {
+            background-color: $task-todo;
+        }
+        .selectedTask {
+            font-family: $global-font-bold;
         }
         .outer-button {
             cursor: pointer;

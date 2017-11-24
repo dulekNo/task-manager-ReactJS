@@ -25,22 +25,35 @@ class Dashboard extends React.Component {
                     {
                         nr: '0',
                         name: 'task0',
-                        status: 'complete'
-                    },
-                    {
+                        status: 'completed'
+                    }, {
                         nr: '1',
                         name: 'task1',
                         status: 'inProgress'
-                    },
-                    {
+                    }, {
                         nr: '2',
                         name: 'task2',
                         status: 'todo'
-                    },
-                    {
+                    }, {
                         nr: '3',
                         name: 'task3',
                         status: 'todo'
+                    }, {
+                        nr: '4',
+                        name: 'task4',
+                        status: 'completed'
+                    }, {
+                        nr: '5',
+                        name: 'task5',
+                        status: 'completed'
+                    }, {
+                        nr: '6',
+                        name: 'task6',
+                        status: 'completed'
+                    }, {
+                        nr: '7',
+                        name: 'task7',
+                        status: 'completed'
                     }
                 ]
             }, {
@@ -50,7 +63,7 @@ class Dashboard extends React.Component {
                     {
                         nr: '0',
                         name: 'task1.0',
-                        status: 'complete'
+                        status: 'completed'
                     },
                     {
                         nr: '1',
@@ -70,7 +83,7 @@ class Dashboard extends React.Component {
                     {
                         nr: '0',
                         name: 'task2.0',
-                        status: 'complete'
+                        status: 'completed'
                     },
                     {
                         nr: '1',
@@ -90,7 +103,7 @@ class Dashboard extends React.Component {
                     {
                         nr: '0',
                         name: 'task3.0',
-                        status: 'complete'
+                        status: 'completed'
                     },
                     {
                         nr: '1',
@@ -112,7 +125,7 @@ class Dashboard extends React.Component {
             {
                 nr: '0',
                 name: 'task0',
-                status: 'complete'
+                status: 'completed'
             },
             {
                 nr: '1',
@@ -164,7 +177,7 @@ class Dashboard extends React.Component {
                     </DashboardTasks>
                 </div>
                 <div className="column">
-                    <DataVisualization 
+                    <DataVisualization
                         listOfTasks={this.copyOfListOfTasks}>
                     </DataVisualization>
                 </div>

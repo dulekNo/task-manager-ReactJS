@@ -1,0 +1,17 @@
+@import '../../assets/styles/global-variables.scss';
+
+.singleLegend {
+    height: 25px;
+    margin-top: 5px;
+    width: 60px;
+    text-align: center;
+}
+.inlineElement {
+    display: inline-block;
+}
+.legentTextMargin {
+    margin-left: 5px;
+}
+$task-done: #beff58;
+$task-in-progress: #53ffe5;
+$task-todo: #f0f1e3;

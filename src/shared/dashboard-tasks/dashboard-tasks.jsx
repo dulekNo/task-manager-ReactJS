@@ -42,19 +42,16 @@ class DashboardTasks extends React.Component {
     }
 
     setTaskStyleClass(status) {
-        if (status === 'complete') {
+        if (status === 'completed') {
             return 'task-done';
-        } else {
-            if (status === 'inProgress') {
-                return 'task-in-progress';
-            } else {
-                if (status === 'todo') {
-                    return 'task-todo';
-                } else {
-                    return '';
-                }
-            }
         }
+        if (status === 'inProgress') {
+            return 'task-in-progress';
+        }
+        if (status === 'todo') {
+            return 'task-todo';
+        }
+        return '';
     }
 
     render() {
@@ -116,7 +113,7 @@ class DashboardTasks extends React.Component {
                     Tasks
                 </span>
                 {/* onClickFunction={this.clearSelectedTask.bind(this)} */}
-                <SearchInput setSearchedElement={this.setSearchedTask.bind(this)} label={'Search task'}  />
+                <SearchInput setSearchedElement={this.setSearchedTask.bind(this)} label={'Search task'} />
 
                 <div className="selectable-container-task">
                     <ul>

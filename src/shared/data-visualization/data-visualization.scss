@@ -3,30 +3,3 @@
 // $task-done: #beff58;
 // $task-in-progress: #53ffe5;
 // $task-todo: #f0f1e3;
-
-.pie-chart{
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    background-color: $task-done;
-    // background-image:linear-gradient(to right, transparent 50%, #655 0);
-    .pie-chart-first-part {
-        margin-left: 50%;
-        width: 200px;
-        height: 200px;
-        border-top-right-radius: 50%;
-        border-bottom-right-radius: 50%;
-        background-color: $task-in-progress;
-        // background-image:linear-gradient(to right, transparent 50%,  $task-in-progress);
-    
-    }
-    &::before {
-        content: '';
-        display: block;
-        margin-left: 50%;
-        height: 100%;
-        background-color: $task-in-progress;
-      }
-}
-
-

@@ -89,11 +89,6 @@ class Dashboard extends React.Component {
                         nr: '1',
                         name: 'task2.1',
                         status: 'inProgress'
-                    },
-                    {
-                        nr: '2',
-                        name: 'task2.2',
-                        status: 'todo'
                     }
                 ]
             }, {

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './pie-chart.css';
+import './pie-chart-canvas.css';
 
-class PieChart extends React.Component {
+class PieChartCanvas extends React.Component {
 
     static propTypes = {
         listOfTasks: PropTypes.array.isRequired
@@ -192,4 +192,4 @@ class PieChart extends React.Component {
     }
 }
 
-export default PieChart;
+export default PieChartCanvas;

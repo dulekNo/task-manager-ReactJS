@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './data-visualization.css';
-import PieChart from '../pie-chart/pie-chart';
+import PieChartCanvas from '../pie-chart-canvas/pie-chart-canvas';
+import PieChartSvg from '../pie-chart-svg/pie-chart-svg';
 
 class DataVisualization extends React.Component {
 
@@ -14,9 +15,12 @@ class DataVisualization extends React.Component {
         return (
             <div>
                 Lindsey Striling
-                <PieChart 
+                <PieChartCanvas 
                     listOfTasks={this.copyOfListOfTasks}>
-                </PieChart>
+                </PieChartCanvas>
+                <PieChartSvg 
+                    listOfTasks={this.copyOfListOfTasks}>
+                </PieChartSvg>
             </div>
         );
     }

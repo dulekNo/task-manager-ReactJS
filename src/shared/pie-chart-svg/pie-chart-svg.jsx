@@ -60,76 +60,140 @@ class PieChartSVG extends React.Component {
         }
     }
 
+  
 
-    render() {
-        this.copyOfListOfTasks = this.props.listOfTasks;
-        this.data = [];
-        this.colors = [];
-        this.totalTasksQuentity = this.copyOfListOfTasks.length;
-        this.countDataForChart();
-        // this.drawPieChart();
+init() {
 
-        let tasksDataKeys = Object.keys(this.tasksData);
-        let index = -1;
-        console.log(tasksDataKeys);
-        console.log(this.data);
-        this.legendList = this.data.map((data) => {
-            index++;
-            return (
-                <div key={index}>
-                    <div className="singleLegend inlineElement" style={{ backgroundColor: this.colors[index % this.colors.length] }}>
-                        {data}%
-                    </div>
-                    <span className="inlineElement legentTextMargin">{tasksDataKeys[index]}</span>
-                </div>
-            )
-        });
-        index = -1;
-        let donutCircuit = 36;
-        let sliceDonutCircuit = 0;
-        let curentDashoffset = 0;
+    this.paper;
+    this.arc;
+    // this.colorArr = ["#468966", "#FFF0A5", "#FFB03B", "#B64926", "#8E2800"];
+    // this.pieData = [113, 100, 50, 28, 27];
+    this.sectorAngleArr = [];
+    // this.total = 0;
+    this.startAngle = 0;
+    this.endAngle = 0;
+    // this.x1, x2, y1, y2 = 0;
+    this.points =[];
 
-        // this.data.splice(1,1)
-        this.donutSliceList = this.data.map((data) => {
-            index++;
-            curentDashoffset -= sliceDonutCircuit;
-            sliceDonutCircuit = donutCircuit * data;
-            return (
-                <circle key={index} className="donut-segment" cx="7" cy="7" r="5.73" fill="transparent" stroke={this.colors[index % this.colors.length]} strokeWidth="2" strokeDasharray={`${sliceDonutCircuit} ${donutCircuit - sliceDonutCircuit}`} strokeDashoffset={curentDashoffset}>
-                    <title id="donut-segment-1-title">{tasksDataKeys[index]}</title>
-                </circle>
-            )
-
-        });
-
-        return (
-            <div className="donut1">
-                <svg width="216" height="216" viewBox="0 0 14 14" className="donut">
-                    {/* circuit(ob) of circle = 2*Pi*r = 2*3.14*5.73 = 36*/}
-                    {/* <circle className="donut-ring" cx="7" cy="7" r="5.73" fill="transparent" stroke="#d2d3d4" strokeWidth="1"></circle> */}
-                    {this.donutSliceList}
-                    {/* we need donut-hole to properly display tooltip */}
-                    <circle className="donut-hole" cx="7" cy="7" r="5.73" fill="#fff"></circle>
-                </svg>
-                {/* <div className="inlineElement">
-                    {this.legendList}
-                </div> */}
-                <figcaption class="figure-key inlineElement">
-                    <ul class="figure-key-list" aria-hidden="true" role="presentation">
-                        <li>
-                            <span class="shape-circle shape-fuschia"></span> Belgian Quadrupels (4)
-      </li>
-                        <li>
-                            <span class="shape-circle shape-lemon-lime"></span> Imperial India Pale Ales (2)
-      </li>
-                        <li>
-                            <span class="shape-circle shape-blue"></span> Russian Imperial Stouts (3)
-      </li>
-                    </ul>
-                </figcaption>
-            </div >
-        );
+    // this.paper = Raphael("holder");
+    //CALCULATE THE TOTAL
+    // for (var k = 0; k < pieData.length; k++) {
+    //     total += pieData[k];
+    // }
+    //CALCULATE THE ANGLES THAT EACH SECTOR SWIPES AND STORE IN AN ARRAY
+    for (var i = 0; i < this.data.length; i++) {
+        var angle = Math.ceil(360 * this.data[i]);
+        this.sectorAngleArr.push(angle);
     }
+    // drawArcs();
+}
+
+// drawArcs() {
+//     for (var i = 0; i < sectorAngleArr.length; i++) {
+//         startAngle = endAngle;
+//         endAngle = startAngle + sectorAngleArr[i];
+
+//         x1 = parseInt(200 + 180 * Math.cos(Math.PI * startAngle / 180));
+//         y1 = parseInt(200 + 180 * Math.sin(Math.PI * startAngle / 180));
+
+//         x2 = parseInt(200 + 180 * Math.cos(Math.PI * endAngle / 180));
+//         y2 = parseInt(200 + 180 * Math.sin(Math.PI * endAngle / 180));
+
+//         var d = "M200,200  L" + x1 + "," + y1 + "  A180,180 0 0,1 " + x2 + "," + y2 + " z"; //1 means clockwise
+//         alert(d);
+//         arc = paper.path(d);
+//         arc.attr("fill", colorArr[i]);
+//     }
+// }
+
+render() {
+    this.copyOfListOfTasks = this.props.listOfTasks;
+    this.data = [];
+    this.colors = [];
+    this.totalTasksQuentity = this.copyOfListOfTasks.length;
+    this.countDataForChart();
+    // this.drawPieChart();
+
+    let tasksDataKeys = Object.keys(this.tasksData);
+    let index = -1;
+    this.dataLegent = [];
+    for (let ele in this.data) {
+        this.dataLegent.push(Math.round(this.data[ele] * 10000) / 100);
+    }
+    this.legendList = this.dataLegent.map((data) => {
+        index++;
+        return (
+            <div key={index}>
+                <div className="shape-circle shape-fuschia inlineElement" style={{ backgroundColor: this.colors[index % this.colors.length] }}>
+                </div>
+                <span className="inlineElement legentTextMargin">{tasksDataKeys[index]} ({data}%)</span>
+            </div>
+        )
+    });
+
+    index = -1;
+    let donutCircuit = 36;
+    let sliceDonutCircuit = 0;
+    let curentDashoffset = 0;
+
+    let startAngle = 0;
+    let endAngle = 0;
+    let x1=0,y1=0,x2=0,y2 =0;
+
+    this.sectorAngleArr =[];
+    for (var i = 0; i < this.data.length; i++) {
+        var angle = Math.ceil(360 * this.data[i]);
+        this.sectorAngleArr.push(angle);
+    }
+    this.sectorAngleArr2 = this.sectorAngleArr.map((data, index) => {
+    // for (var i = 0; i < sectorAngleArr.length; i++) {
+        startAngle = endAngle;
+        endAngle = startAngle + data;
+
+        x1 = parseInt(200 + 180 * Math.cos(Math.PI * startAngle / 180), 10);
+        y1 = parseInt(200 + 180 * Math.sin(Math.PI * startAngle / 180), 10);
+
+        x2 = parseInt(200 + 180 * Math.cos(Math.PI * endAngle / 180), 10);
+        y2 = parseInt(200 + 180 * Math.sin(Math.PI * endAngle / 180), 10);
+
+        // var d = "M200,200  L" + x1 + "," + y1 + "  A180,180 0 0,1 " + x2 + "," + y2 + " z"; //1 means clockwise
+        // alert(d);
+        // arc = thispaper.path(d);
+        // arc.attr("fill", colorArr[i]);
+        // this.colors[index % this.colors.length]
+        return (
+            <path key={index} fill="#61C0BF" d={`M200,200  L${x1},${y1} A180,180 0 0,1${x2},${y2} z`}></path>
+        );
+    });
+
+
+    // this.data.splice(1,1)
+    this.donutSliceList = this.data.map((data) => {
+        index++;
+        curentDashoffset -= sliceDonutCircuit;
+        sliceDonutCircuit = donutCircuit * data;
+        return (
+            <circle key={index} className="donut-segment" cx="8" cy="8" r="5.73" fill="transparent" stroke={this.colors[index % this.colors.length]} strokeWidth="3" strokeDasharray={`${sliceDonutCircuit} ${donutCircuit - sliceDonutCircuit}`} strokeDashoffset={curentDashoffset}>
+                <title id="donut-segment-1-title">{tasksDataKeys[index]}</title>
+            </circle>
+        )
+
+    });
+
+    return (
+        <div className="erwqe">
+            {/* <svg width="216" height="216" >
+                <path fill="#61C0BF" d="M300 300 A 180 180 0 0 1 89 99 L 0 0"></path>
+            </svg> */}
+            <svg width="600" height="400">
+                    {this.sectorAngleArr2}
+                </svg>
+            <div className="inlineElement circleLegend">
+                {this.legendList}
+            </div>
+        </div>
+    );
+}
 }
 
 export default PieChartSVG;

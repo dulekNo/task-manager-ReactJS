@@ -1,0 +1,27 @@
+@import '../../assets/styles/global-variables.scss';
+
+.donut {
+    transform: rotate(-0.25turn)
+}
+
+.inlineElement {
+  display: inline-block;
+}
+
+.circleLegend {
+    margin-bottom: 20px;
+}
+
+.shape-circle {
+    display: inline-block;
+    vertical-align: middle;
+    width: 26px;
+    height: 26px;
+    -webkit-border-radius: 50%;
+       -moz-border-radius: 50%;
+            border-radius: 50%;
+}
+
+$task-done: #beff58;
+$task-in-progress: #53ffe5;
+$task-todo: #f0f1e3;

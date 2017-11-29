@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './data-visualization.css';
 import PieChartCanvas from '../pie-chart-canvas/pie-chart-canvas';
 import PieChartSvg from '../pie-chart-svg/pie-chart-svg';
+import DonutChartSvg from '../donut-chart-svg/donut-chart-svg';
 
 class DataVisualization extends React.Component {
 
@@ -15,9 +16,12 @@ class DataVisualization extends React.Component {
         return (
             <div>
                 Lindsey Striling
-                <PieChartCanvas 
+                {/* <PieChartCanvas 
                     listOfTasks={this.copyOfListOfTasks}>
                 </PieChartCanvas>
+                <DonutChartSvg 
+                    listOfTasks={this.copyOfListOfTasks}>
+                </DonutChartSvg> */}
                 <PieChartSvg 
                     listOfTasks={this.copyOfListOfTasks}>
                 </PieChartSvg>

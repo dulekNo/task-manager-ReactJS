@@ -67,7 +67,6 @@ class DonutChartSVG extends React.Component {
         this.colors = [];
         this.totalTasksQuentity = this.copyOfListOfTasks.length;
         this.countDataForChart();
-        // this.drawDonutChart();
 
         let tasksDataKeys = Object.keys(this.tasksData);
         let index = -1;
@@ -78,10 +77,12 @@ class DonutChartSVG extends React.Component {
         this.legendList = this.dataLegent.map((data) => {
             index++;
             return (
-                <div key={index}>
-                    <div className="shape-circle shape-fuschia inlineElement" style={{ backgroundColor: this.colors[index % this.colors.length] }}>
-                    </div>
-                    <span className="inlineElement legentTextMargin">{tasksDataKeys[index]} ({data}%)</span>
+                <div 
+                    key={index} 
+                    style={{ backgroundColor: this.colors[index % this.colors.length] }}
+                    className="legent-text-padding">
+                    {tasksDataKeys[index]} 
+                    <span className="float-right">{data}%</span>
                 </div>
             )
         });
@@ -91,26 +92,30 @@ class DonutChartSVG extends React.Component {
         let sliceDonutCircuit = 0;
         let curentDashoffset = 0;
 
-        // this.data.splice(1,1)
         this.donutSliceList = this.data.map((data) => {
             index++;
             curentDashoffset -= sliceDonutCircuit;
             sliceDonutCircuit = donutCircuit * data;
             return (
                 <circle key={index} className="donut-segment" cx="8" cy="8" r="5.73" fill="transparent" stroke={this.colors[index % this.colors.length]} strokeWidth="3" strokeDasharray={`${sliceDonutCircuit} ${donutCircuit - sliceDonutCircuit}`} strokeDashoffset={curentDashoffset}>
-                    <title id="donut-segment-1-title">{tasksDataKeys[index]}</title>
+                    <title>{tasksDataKeys[index]}</title>
                 </circle>
             )
-
         });
 
         return (
-            <div className="donut1">
-                <svg width="216" height="216" viewBox="0 0 16 16" className="donut inlineElement">
+            this.data.length !== 0 && <div className="donut1">
+                <svg width="216" height="216" viewBox="0 0 16 16" className="donut inline-element">
                     {this.donutSliceList}
                     <circle className="donut-hole" cx="8" cy="8" r="5.73" fill="#fff"></circle>
+                    <g className="chart-text">
+                        {/* //30 i 46 */}
+                        <text x="40%" y="-40%" className="chart-label">
+                            Tasks
+                        </text>
+                    </g>
                 </svg>
-                <div className="inlineElement circleLegend">
+                <div className="inline-element">
                     {this.legendList}
                 </div>
             </div>

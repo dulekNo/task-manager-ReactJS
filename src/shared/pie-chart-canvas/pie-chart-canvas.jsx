@@ -16,10 +16,6 @@ class PieChartCanvas extends React.Component {
         this.taskTodo = '#f0f1e3';
     }
 
-    componentDidMount() {
-        this.updateCanvas();
-    }
-
     countDataForChart() {
         this.colors = [];
         this.colors = this.copyOfListOfTasks.map((ele) => {
@@ -76,26 +72,6 @@ class PieChartCanvas extends React.Component {
             });
         }
     }
-    updateCanvas() {
-        const ctx = this.refs.myCanvas.getContext('2d');
-        // this.drawLine(ctx, 100, 100, 200, 15);
-        // this.drawArc(ctx, 100, 100, 50, 200, 15);
-        // this.drawPieSlice(ctx, 100, 100, 50, 200, 15, '#ff0000');
-        ctx.fillStyle = 'rgb(100,0,0)';
-        ctx.fillRect(50, 50, 130, 100);
-
-    }
-    drawLine(ctx, startX, startY, endX, endY) {
-        ctx.beginPath();
-        ctx.moveTo(startX, startY);
-        ctx.lineTo(endX, endY);
-        ctx.stroke();
-    }
-    drawArc(ctx, centerX, centerY, radius, startAngle, endAngle) {
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
-        ctx.stroke();
-    }
 
     drawPieSlice(ctx, centerX, centerY, radius, startAngle, endAngle, color) {
         ctx.fillStyle = color;
@@ -124,12 +100,6 @@ class PieChartCanvas extends React.Component {
             val = options.data[categ];
             slice_angle = 2 * Math.PI * (val / total_value);
 
-            // data on piechart
-            // var pieRadius = Math.min(canvas.width / 2, canvas.height / 2);
-            // var labelX = canvas.width / 2 + (pieRadius / 2) * Math.cos(start_angle + slice_angle / 2);
-            // var labelY = canvas.height / 2 + (pieRadius / 2) * Math.sin(start_angle + slice_angle / 2);
-
-
             this.drawPieSlice(
                 ctx,
                 canvas.width / 2,
@@ -140,20 +110,25 @@ class PieChartCanvas extends React.Component {
                 colors[color_index % colors.length]
             );
 
-
-            //does not work as i want to (each slice separetly...)
-            // canvas.addEventListener('mouseover', function () {
-            //     //data on piechart
-            //     var labelText = Math.round(100 * val / total_value);
-            //     ctx.fillStyle = "black";
-            //     ctx.font = "bold 20px Arial";
-            //     ctx.fillText(labelText + "%", labelX, labelY);
-            // }, false);
-
-
             start_angle += slice_angle;
             color_index++;
         }
+    }
+
+    drawLegend() {
+        let tasksDataKeys = Object.keys(this.tasksData);
+        let index = -1;
+        this.legendList = this.data.map((data) => {
+            index++;
+            return (
+                <div key={index}>
+                    <div className="single-legend-line inline-element" style={{ backgroundColor: this.colors[index % this.colors.length] }}>
+                        {data}%
+                    </div>
+                    <span className="inline-element legent-text-margin">{tasksDataKeys[index]}</span>
+                </div>
+            )
+        });
     }
 
     render() {
@@ -161,33 +136,22 @@ class PieChartCanvas extends React.Component {
         this.data = [];
         this.colors = [];
         this.totalTasksQuentity = this.copyOfListOfTasks.length;
-        this.countDataForChart();
-        this.drawPieChart();
-
-        let tasksDataKeys = Object.keys(this.tasksData);
-        let index = -1;
-        console.log(tasksDataKeys);
-        console.log(this.data);
-        this.legendList = this.data.map((data) => {
-            index++;
-            return (
-                <div key={index}>
-                    <div className="singleLegend inlineElement" style={{ backgroundColor: this.colors[index % this.colors.length] }}>
-                        {data}%
-                    </div>
-                    <span className="inlineElement legentTextMargin">{tasksDataKeys[index]}</span>
-                </div>
-            )
-        });
+        this.width = 230;
+        if(this.copyOfListOfTasks.length !== 0 ){
+            this.width = 230;
+            this.countDataForChart();
+            this.drawPieChart();
+            this.drawLegend();
+        }
+        
 
         return (
             <div>
-                <canvas ref="myCanvas" width={230} height={230} ></canvas>
-                <div className="inlineElement">
+                <canvas ref="myCanvas" width={this.width} height={this.width} ></canvas>
+                <div className="inline-element">
                     {this.legendList}
                 </div>
             </div>
-
         );
     }
 }

@@ -1,27 +1,28 @@
 @import '../../assets/styles/global-variables.scss';
+@import '../../assets/styles/global-styles.scss';
 
 .donut {
-    transform: rotate(-0.25turn)
+    transform: rotate(-0.25turn);
+    background-color: transparent;
+}
+.chart-text {
+    fill: #000;
+    font-size: 3px;
+    transform: rotate(0.25turn);
+ }
+
+.chart-label {
+    text-transform: uppercase;
+    text-anchor: middle;
+    transform: translate(0.5em,-0.2em);
 }
 
-.inlineElement {
-  display: inline-block;
+.legent-text-padding {
+    padding: 0 5px 0 5px;
+    margin-bottom: 5px;
+    width: 100%;
 }
 
-.circleLegend {
-    margin-bottom: 20px;
+.float-right {
+    float: right;
 }
-
-.shape-circle {
-    display: inline-block;
-    vertical-align: middle;
-    width: 26px;
-    height: 26px;
-    -webkit-border-radius: 50%;
-       -moz-border-radius: 50%;
-            border-radius: 50%;
-}
-
-$task-done: #beff58;
-$task-in-progress: #53ffe5;
-$task-todo: #f0f1e3;

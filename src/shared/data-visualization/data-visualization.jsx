@@ -16,12 +16,12 @@ class DataVisualization extends React.Component {
         return (
             <div>
                 Lindsey Striling
-                {/* <PieChartCanvas 
+                <PieChartCanvas 
                     listOfTasks={this.copyOfListOfTasks}>
                 </PieChartCanvas>
                 <DonutChartSvg 
                     listOfTasks={this.copyOfListOfTasks}>
-                </DonutChartSvg> */}
+                </DonutChartSvg>
                 <PieChartSvg 
                     listOfTasks={this.copyOfListOfTasks}>
                 </PieChartSvg>

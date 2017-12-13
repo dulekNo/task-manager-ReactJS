@@ -1,27 +1,93 @@
 @import '../../assets/styles/global-variables.scss';
+@import '../../assets/styles/global-styles.scss';
 
-// svg {
-//     transform: rotate(-0.25turn)
-// }
+.svg-pie-chart{
+    // transform: rotate(-0.25turn);
+    transform-origin: left;
+    // animation: spin 50s linear infinite;
+    .svg-pie-chart-g {
+        visibility: hidden;
+        & > * { 
+            visibility: visible;
+        }
+        &:hover > * {
+            opacity: 0.5;
+        }
+        .clickable-slice {
+            cursor: pointer;
+            animation: 1s spin linear forwards;
+            &:hover {
+                opacity: 1;
+            }
+        }
+    }
+}
 
-// .inlineElement {
-//   display: inline-block;
-// }
+@keyframes spin {
+    from {transform: rotate(0deg);}
+	to {transform: rotate(144deg);}
+}
 
-// .circleLegend {
-//     margin-bottom: 20px;
-// }
+.legent-text-margin{
+    margin-left: 5px;
+}
 
-// .shape-circle {
-//     display: inline-block;
-//     vertical-align: middle;
-//     width: 26px;
-//     height: 26px;
-//     -webkit-border-radius: 50%;
-//        -moz-border-radius: 50%;
-//             border-radius: 50%;
-// }
+.shape-circle{
+    display: inline-block;
+    vertical-align: middle;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+} 
 
-$task-done: #beff58;
-$task-in-progress: #53ffe5;
-$task-todo: #f0f1e3;
+.custom-svg-tooltip {
+    // transform: rotate(0.25turn);
+    position: fixed;
+    border: 1px dashed black;
+    transform: rotate(0.25turn);
+}
+
+.tooltip {
+    pointer-events:none; /*let mouse events pass through*/
+    // opacity:0;
+    // transition: opacity 0.3s;
+    text-shadow:1px 1px 0px #808080;
+    z-index: 10;
+    background-color: white;
+}
+
+.tooltip-pie-chart {
+    opacity: 0.8;
+    font-size: 15px;
+    color: white;
+    font-weight: bold;
+    background: black;
+    padding: 0 10px 0 10px;
+    width: auto;
+    // max-width: 120px;
+    z-index: 5;
+    position: absolute;
+    
+}
+
+.text-red {
+    color: red;
+}
+.tooltip-pie-chart:after {
+    box-sizing: border-box;
+    display: block;
+    font-size: 14px;
+    width: 100%;
+    line-height: 1;
+    color: rgba(0, 0, 0, 0.8);
+    content: "\25BC";
+    position: absolute;
+    margin-left: -10px;
+    margin-top: -3px;
+    text-align: center;
+}
+
+
+.position-relative {
+    position: relative;
+}

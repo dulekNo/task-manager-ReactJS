@@ -4,6 +4,7 @@ class Tasks extends React.Component {
 
     constructor(props) {
         super(props);
+        this.eta = 1;
         this.length = 2;
         this.W = [1, 2, 3, 4];
         this.B = [-0.5, 0.75, 0.35, -0.5];
@@ -48,22 +49,84 @@ class Tasks extends React.Component {
         //     }
         // }
 
+        // let epok = 0;
+        // while (epok < 10) {
+        //     for (let nbOfNeuron = 0; nbOfNeuron < this.length; nbOfNeuron++) {
+        //         this.Y[nbOfNeuron] = 0;
+        //         for (let col = 0; col < this.length; col++) {
+        //             this.Y[nbOfNeuron] = Number((this.Y[nbOfNeuron] + this.W[col] * this.B[nbOfNeuron + this.length * col]).toFixed(20)); //this.B[row+this.length*col]
+        //         }
+        //         // this.E[0]=this.C[0] - this.Y[0];
+        //         this.E[nbOfNeuron] = Number((this.C[nbOfNeuron] - this.Y[nbOfNeuron]).toFixed(20));
+        //         // console.log(this.E[0]);
+        //         for (let col = 0; col < this.length; col++) {
+        //             this.B[nbOfNeuron + this.length * col] = Number((this.B[nbOfNeuron + this.length * col] * this.E[nbOfNeuron]/1000).toFixed(20));
+        //         }
+        //         // console.log(this.W[0]);
+        //         // console.log(this.W[1]);
+        //     }
+        //     epok++;
+        // }
+        // console.log(this.Y)
+        // console.log(this.C)
+        // console.log(this.E)
+        // console.log(this.W)
+        // console.log(this.B)
+        // console.log(epok)
+
+        this.Y = [[0, 0], [0, 0]];
+
         let epok = 0;
-        while (epok < 10) {
-            for (let nbOfNeuron = 0; nbOfNeuron < this.length; nbOfNeuron++) {
-                this.Y[nbOfNeuron] = 0;
-                for (let col = 0; col < this.length; col++) {
-                    this.Y[nbOfNeuron] = Number((this.Y[nbOfNeuron] + this.W[col] * this.B[nbOfNeuron + this.length * col]).toFixed(20)); //this.B[row+this.length*col]
+        this.length = 2;
+        this.W = [[1, 2], [3, 4]];
+        this.B = [[0.5, -0.8], [0.75, 0.2]];
+        this.E = [[0, 0], [0, 0]];
+        this.C = [[1, 0], [0, 1]];
+        this.eta = 0.1;
+        while (epok < 100) {
+            for (let col = 0; col < this.length; col++) {
+                for (let row = 0; row < this.length; row++) {
+                    this.Y[row][col] = 0;
                 }
-                // this.E[0]=this.C[0] - this.Y[0];
-                this.E[nbOfNeuron] = Number((this.C[nbOfNeuron] - this.Y[nbOfNeuron]).toFixed(20));
-                // console.log(this.E[0]);
-                for (let col = 0; col < this.length; col++) {
-                    this.B[nbOfNeuron + this.length * col] = Number((this.B[nbOfNeuron + this.length * col] * this.E[nbOfNeuron]/1000).toFixed(20));
-                }
-                // console.log(this.W[0]);
-                // console.log(this.W[1]);
             }
+
+            for (let neuron = 0; neuron < this.length; neuron++) {
+                for (let row = 0; row < this.length; row++) {
+                    for (let col = 0; col < this.length; col++) {
+                        this.Y[row][neuron] = this.Y[row][neuron] + this.W[row][col] * this.B[col][neuron];
+                    }
+                }
+            }
+
+
+
+
+            for (let col = 0; col < this.length; col++) {
+                for (let row = 0; row < this.length; row++) {
+                    this.E[row][col] = this.C[row][col] - this.Y[row][col];
+                }
+            }
+            // this.E = this.C - this.Y;
+            // this.E = Number((this.C - this.Y).toFixed(20));
+            // console.log(this.E[0]);
+            // for (let col = 0; col < this.length; col++) {
+            //     this.B[col] = this.B[col] + this.E * this.eta * this.W[col];
+            // }
+            for (let col = 0; col < this.length; col++) {
+                for (let row = 0; row < this.length; row++) {
+                    this.B[col][row] = this.B[col][row] + this.E[col][row] * this.eta * this.W[row][col];
+                }
+            }
+            // console.log(this.W[0]);
+            // console.log(this.W[1]);
+
+            console.log(this.Y)
+            console.log(this.C)
+            console.log(this.E)
+            console.log(this.W)
+            console.log(this.B)
+            console.log(epok)
+
             epok++;
         }
         console.log(this.Y)
@@ -75,9 +138,102 @@ class Tasks extends React.Component {
     }
 
 
+    leOneEle() {
+        this.Y = 0;
+
+        let epok = 0;
+        this.W = [-1, 1];
+        this.B = [3, 4];
+        this.E = 0;
+        this.C = 2;
+        this.eta = 0.1;
+        while (epok < 100) {
+            this.Y = 0;
+
+            for (let col = 0; col < this.length; col++) {
+                // this.Y = Number((this.Y + this.W[col] * this.B[col]).toFixed(20)); //this.B[row+this.length*col]
+                this.Y = this.Y + this.W[col] * this.B[col]; //this.B[row+this.length*col]
+            }
+            this.E = this.C - this.Y;
+            // this.E = Number((this.C - this.Y).toFixed(20));
+            // console.log(this.E[0]);
+            for (let col = 0; col < this.length; col++) {
+                this.B[col] = this.B[col] + this.E * this.eta * this.W[col];
+            }
+            // console.log(this.W[0]);
+            // console.log(this.W[1]);
+
+            console.log(this.Y)
+            console.log(this.C)
+            console.log(this.E)
+            console.log(this.W)
+            console.log(this.B)
+            console.log(epok)
+
+            epok++;
+        }
+        console.log(this.Y)
+        console.log(this.C)
+        console.log(this.E)
+        console.log(this.W)
+        console.log(this.B)
+        console.log(epok)
+    }
+
+    leDWA() {
+        this.Y = [0, 0];
+
+        let epok = 0;
+        this.W = [[-1, 2], [-3, 5]];
+        this.B = [3,4];
+        this.E = [0,0];
+        this.C = [2,7];
+        this.eta = 0.1;
+        while (epok < 1000) {
+            this.Y[0] = 0;
+            this.Y[1] = 0;
+
+            for (let col = 0; col < this.length; col++) {
+                // this.Y = Number((this.Y + this.W[col] * this.B[col]).toFixed(20)); //this.B[row+this.length*col]
+                for (let i = 0; i < this.length; i++) {
+                    this.Y[col] = this.Y[col] + this.W[col][i] * this.B[i]; //this.B[row+this.length*col]
+                }
+            }
+
+            for (let i = 0; i < this.length; i++) {
+                this.E[i] = this.C[i] - this.Y[i];
+            }
+            // this.E = Number((this.C - this.Y).toFixed(20));
+            // console.log(this.E[0]);
+            for (let col = 0; col < this.length; col++) {
+                for (let i = 0; i < this.length; i++) {
+                    this.B[col] = this.B[col] + this.E[col] * this.eta * this.W[col][i];
+                }
+            }
+            // console.log(this.W[0]);
+            // console.log(this.W[1]);
+
+            // console.log(this.Y)
+            // console.log(this.C)
+            // console.log(this.E)
+            // console.log(this.W)
+            // console.log(this.B)
+            // console.log(epok)
+
+            epok++;
+        }
+        console.log(this.Y)
+        console.log(this.C)
+        console.log(this.E)
+        console.log(this.W)
+        console.log(this.B)
+        console.log(epok)
+    }
+
     render() {
 
-        this.leStart();
+        // this.leStart();
+        this.leDWA();
 
         // this.leList = this.dataLegent.map((data) => {
         //     index++;
